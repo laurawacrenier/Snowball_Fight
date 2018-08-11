@@ -10,8 +10,12 @@
       <script src="https://cdn.rawgit.com/donmccurdy/aframe-extras/v3.13.1/dist/aframe-extras.min.js"></script>
       <!--Compatibility with gblocks-->
       <script src="https://cdn.rawgit.com/archilogic-com/aframe-gblock/6498b71d/dist/gblock.js"></script>
+      <link rel="stylesheet" href="./stylesheets/style.css" type="text/css" />
     </head>
     <body>
+        <div class="hidden" id="hpBar">
+          <div id="content"></div>
+        </div>
         <a-scene>
           <!--Backgrounds, Skins, and Textures-->
           <a-assets>
@@ -25,7 +29,8 @@
           <a-entity gblock="https://poly.google.com/view/bHyQe5jzdiQ" static-body position="-1 0.5 -3" scale="0.8 0.8 0.8" id="house"></a-entity>
           <a-entity gblock="https://poly.google.com/view/0DiDQUcuv1d" static-body="sphereRadius:NaN" position="-12.564 5.909 12.32" scale="3 3 3" rotation="0 -45 0" id="snowman"></a-entity>
           <a-entity id="oldMan" gblock="https://poly.google.com/view/5v5j_lqOHTO" static-body="sphereRadius:NaN" scale="0.3 0.3 0.3" position="5.596 0.53 -15.012" rotation="0 75 0"></a-entity>
-          <a-entity class="copCar" gblock="https://poly.google.com/view/erAyhpZ-N2h" static-body="sphereRadius:NaN" scale="0.08 0.08 0.08" position="22.381 0.086 24.956" rotation="0 230 0"></a-entity>          
+          <a-entity class="copCar" gblock="https://poly.google.com/view/erAyhpZ-N2h" static-body="sphereRadius:NaN" scale="0.08 0.08 0.08" position="22.381 0.086 24.956" rotation="0 230 0"></a-entity>      
+          <!--<a-entity gblock="https://poly.google.com/view/2WOXO0LlL0K" scale="0.8 0.8 0.8" position="17.45 1.722 10.986" rotation="0 -145 0"></a-entity>-->
           <!--access the player class and give it all necessary attributes-->
           <a-entity class="player" id="player"
             camera
@@ -37,7 +42,9 @@
             <a-cursor></a-cursor>
           </a-entity>
           <a-entity id="ball_frame"></a-entity>
+          <a-entity id="opponent_field"></a-entity>
         </a-scene>
     </body>
-    <script type="text/javascript" src="scripts/game.js"></script>
+    <script type="text/javascript" src="scripts/Opponent.js"></script>
+    <script type="text/javascript" src="scripts/Game.js"></script>
 </html>
