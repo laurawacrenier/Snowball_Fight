@@ -9,15 +9,8 @@ let player = document.querySelector('#player');
 let ball_frame = document.querySelector('#ball_frame');
 let camera = document.querySelector('[camera]').object3D;
 let healthBar = document.querySelector('#content');
-let opponents = []; //store all opponents here
-let numOpponents = 1;
-
-//If the old man catches you, it's game over
-player.addEventListener('collide', e => {
-  if (e.detail.body.el == oldMan) {
-    alert('Game Over!');
-  } 
-});
+let numOpponents = 5;
+let spawnPoint = new THREE.Vector3(10, 0, 9);
 
 /** Creates the ball element that we append to the DOM
   * in the throwBall() function. 
@@ -35,7 +28,7 @@ function construct_ball(velocity) {
   };
   
   let tag = `<${snowball.type} ${snowball.body} class='snowball' 
-  radius='${snowball.radius}' position='${snowball.position}' 
+  radius='${snowball.radius}' position='${snowball.position}'
   velocity='${snowball.velocity}'></${snowball.type}>`;
   return tag;
 }
@@ -52,23 +45,10 @@ window.addEventListener('click', e => {
   throwBall();
 });
 
-/** Start the game when the page loads. */
+/** Create players and add to page */
 for (let i = 0; i < numOpponents; i++) {
-  let opponent = new Opponent();
+  let location = `${spawnPoint.x} ${spawnPoint.y} ${spawnPoint.z}`;
+  let opponent = new Opponent(location);
   opponent.appear();
-  opponents.push(opponent);
+  spawnPoint.x -= 5;
 }
-
-opponents.forEach(o => {
-  let htmlObject = document.querySelector(`#opponent${o.id}`);
-  
-  htmlObject.addEventListener('collide', e => {
-    if (o.health <= 1) {
-      healthBar.innerHTML = `<h3>Opponent Defeated</h3>`;
-    } else {
-      o.damage();
-      healthBar.innerHTML = `<h3>Opponent Health: ${o.health}</h3>`;
-      healthBar.classList.toggle('hidden');
-    }
-  });
-});
