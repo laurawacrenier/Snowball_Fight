@@ -27,7 +27,7 @@ Opponent.prototype.damage = function(e) {
     healthBar.innerHTML = `<h3>Opponent Health: ${this.health}</h3>`;
   } else {
     healthBar.innerHTML = `<h3>Opponent Defeated</h3>`;
-    this.deactivate(e.target.object3D.position);
+    this.deactivate();
   }
 };
 
@@ -35,22 +35,10 @@ Opponent.prototype.damage = function(e) {
 Opponent.prototype.appear = function() {
   //make opponent appear on the DOM
   FIELD.innerHTML += this.tag;
-  let htmlObject = document.querySelector(`#opponent${this.id}`);
-  //make it possible to collide with the opponent
-  htmlObject.addEventListener('collide', e => {
-    if (e.detail.body.el.classList.contains('snowball')) {
-      this.damage(e);
-    } else if (e.detail.body.el.classList.contains('player') 
-      && this.health >0) {
-      alert('Game Over!');
-      location.reload();
-    }
-  })
 };
 
 /** Ends a defeated Opponent's movement and danger. */
-Opponent.prototype.deactivate = function(position) {
+Opponent.prototype.deactivate = function() {
   let htmlObject = document.querySelector(`#opponent${this.id}`);
   htmlObject.removeAttribute('follow');
-  this.tag = htmlObject.outerHTML;
 }

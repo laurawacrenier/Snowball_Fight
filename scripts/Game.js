@@ -4,12 +4,10 @@
   */
 
 //Store relevant DOM elements using querySelector()
-let oldMan = document.querySelector('#oldMan');
-let player = document.querySelector('#player');
 let ball_frame = document.querySelector('#ball_frame');
 let camera = document.querySelector('[camera]').object3D;
-let healthBar = document.querySelector('#content');
 let numOpponents = 5;
+let opponents = [];
 let spawnPoint = new THREE.Vector3(10, 0, 9);
 
 /** Creates the ball element that we append to the DOM
@@ -50,5 +48,21 @@ for (let i = 0; i < numOpponents; i++) {
   let location = `${spawnPoint.x} ${spawnPoint.y} ${spawnPoint.z}`;
   let opponent = new Opponent(location);
   opponent.appear();
+  opponents.push(opponent);
   spawnPoint.x -= 5;
 }
+
+opponents.forEach(o => {
+  //console.log(o.html)
+  let html = document.querySelector(`#opponent${o.id}`)
+  html.addEventListener('collide', e=> {
+    if (e.detail.body.el.classList.contains('snowball')
+      && o.health > 0) {
+      o.damage();
+    } else if (e.detail.body.el.classList.contains('player')
+      && o.health > 0) {
+      alert('game over');
+      location.reload();
+    }
+  })
+})
