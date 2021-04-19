@@ -16,4 +16,4 @@ framework built off of Three.js. For more information, visit <https://aframe.io>
 
 Clone the repository and open `index.html` or see the live running preview at
 <https://cseremetis.github.io/Snowball_Fight/index.html>
-
+--
